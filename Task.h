@@ -13,19 +13,11 @@ class Task
 public:
 	Task();
 	virtual ~Task();
-
-	unsigned short getDuration() const
-	{
-		return duration;
-	}
-
-	unsigned short getMachine() const
-	{
-		return machine;
-	}
+	unsigned short getDuration() const;
+	unsigned short getMachineId() const;
 
 private:
-	unsigned short machine;
+	unsigned short machineID;
 	unsigned short duration;
 };
 

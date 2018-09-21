@@ -18,3 +18,12 @@ Task::~Task()
 	// TODO Auto-generated destructor stub
 }
 
+unsigned short Task::getDuration() const
+{
+	return duration;
+}
+
+unsigned short Task::getMachineId() const
+{
+	return machineID;
+}
