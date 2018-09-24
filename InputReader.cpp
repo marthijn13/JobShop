@@ -10,12 +10,13 @@ InputReader::InputReader(std::string fileName) :
 		fileName(fileName)
 {
 	readInput(fileName);
-	std::cout << __PRETTY_FUNCTION__ << std::endl;
 }
 
 InputReader::~InputReader()
 {
 }
+
+
 
 void InputReader::readInput(std::string fileName)
 {
@@ -64,6 +65,7 @@ void InputReader::readInput(std::string fileName)
 			Task a(machine, duration);
 			taskList.push_back(a);
 			Job job(taskList);
+			taskList.clear();
 			jobList.push_back(job);
 		}
 	}

@@ -68,7 +68,7 @@ void Job::setStartTime(unsigned long startTime)
 	this->startTime = startTime;
 }
 
-std::vector<Task> Job::getTasklist() const
+std::vector<Task> Job::getTaskList() const
 {
 	return taskList;
 }

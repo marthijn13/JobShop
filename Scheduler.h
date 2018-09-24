@@ -8,6 +8,7 @@
 #include "Machine.h"
 #include "Task.h"
 #include "Job.h"
+#include <iostream>
 
 #ifndef JOBSHOP_SCHEDULER_H_
 #define JOBSHOP_SCHEDULER_H_

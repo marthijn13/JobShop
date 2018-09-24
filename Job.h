@@ -27,7 +27,7 @@ public:
 	void setSlack(unsigned long slack);
 	unsigned long getStartTime() const;
 	void setStartTime(unsigned long startTime);
-	std::vector<Task> getTasklist() const;
+	std::vector<Task> getTaskList() const;
 	void setTasklist(std::vector<Task> tasklist);
 
 private:
