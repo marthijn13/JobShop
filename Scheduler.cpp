@@ -7,15 +7,38 @@
 
 #include "Scheduler.h"
 
-Scheduler::Scheduler(std::vector<std::vector<Task>> taskList,
+Scheduler::Scheduler(std::vector<Job> jobList,
 		unsigned short totalMachines, unsigned short totalJobs) :
-		taskList(taskList), totalMachines(totalMachines), totalJobs(totalJobs)
+		jobList(jobList), totalMachines(totalMachines), totalJobs(totalJobs)
 {
 
 }
 
 Scheduler::~Scheduler()
 {
-	// TODO Auto-generated destructor stub
+
 }
 
+void Scheduler::update()
+{
+	machineList.reserve(totalMachines);
+	for (unsigned short i = 0; i < totalMachines; ++i){
+		Machine a(i);
+		machineList.push_back(a);
+	}
+}
+
+void Scheduler::calcEF()
+{
+
+}
+
+void Scheduler::calcSlack()
+{
+
+}
+
+bool Scheduler::isFinished() const
+{
+	return finished;
+}

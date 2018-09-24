@@ -1,8 +1,8 @@
 /*
  * InputReader.cpp
  *
- *  Created on: Sep 18, 2018
- *      Author: marthijn
+ * Created on: Sep 18, 2018
+ * Author: marthijn
  */
 #include "InputReader.h"
 
@@ -10,12 +10,7 @@ InputReader::InputReader(std::string fileName) :
 		fileName(fileName)
 {
 	readInput(fileName);
-}
-
-InputReader::InputReader(const InputReader& obj) :
-		fileName(obj.fileName)
-{
-	//copy constructor
+	std::cout << __PRETTY_FUNCTION__ << std::endl;
 }
 
 InputReader::~InputReader()
@@ -27,12 +22,9 @@ void InputReader::readInput(std::string fileName)
 	std::ifstream istrm(fileName);
 	std::string c;
 
-//	std::vector<std::vector<Task>> taskList =
-//	{
-//	{ } };
-
 	if (istrm.is_open())
 	{
+		getline(istrm, c);
 		getline(istrm, c);
 
 		char space = c.find(' ');
@@ -41,46 +33,60 @@ void InputReader::readInput(std::string fileName)
 		totalJobs = std::stoi(c.substr(0, space), &stringSize);
 		std::cout << "Number of jobs: " << totalJobs << std::endl;
 
-		totalMachines = std::stoi(c.substr(space, (c.size() - space)), &stringSize);
+		totalMachines = std::stoi(c.substr(space, (c.size() - space)),
+				&stringSize);
 		std::cout << "Number of machines: " << totalMachines << std::endl;
-		taskList.resize(totalJobs * totalMachines);
-		auto k = 0;
-		for (int l = 0; l < totalJobs; ++l)
+		taskList.reserve(totalMachines);
+
+		auto stringStart = 0;
+
+		for (int j = 0; j < totalJobs; ++j)
 		{
 			getline(istrm, c);
-			for (int i = 0; i < totalMachines - 1; ++i)
+			for (int m = 0; m < totalMachines - 1; ++m)
 			{
-				auto j = c.find(' ');
-				unsigned short machine = std::stoi(c.substr(k, j));
-				c.erase(k, j + 1);
-				j = c.find(' ');
-				unsigned short duration = std::stoi(c.substr(k, j));
-				c.erase(k, j + 1);
+				auto stringEnd = c.find(' ');
+				unsigned short machine = std::stoi(
+						c.substr(stringStart, stringEnd));
+				c.erase(stringStart, stringEnd + 1);
+				stringEnd = c.find(' ');
+				unsigned short duration = std::stoi(
+						c.substr(stringStart, stringEnd));
+				c.erase(stringStart, stringEnd + 1);
 				Task a(machine, duration);
-//				std::cout << "___Job_" << l << "___" << std::endl;
-//				std::cout << "M:" << machine << std::endl;
-//				std::cout << "D:" << duration << std::endl;
-//				std::cout << std::endl;
-				taskList[l].push_back(a);
+				taskList.push_back(a);
 			}
-			auto j = c.find(' ');
-			unsigned short machine = std::stoi(c.substr(k, j));
-			c.erase(k, j + 1);
-			short duration = std::stoi(c.substr(k, c.size()));
+			auto stringEnd = c.find(' ');
+			unsigned short machine = std::stoi(
+					c.substr(stringStart, stringEnd));
+			c.erase(stringStart, stringEnd + 1);
+			short duration = std::stoi(c.substr(stringStart, c.size()));
 			Task a(machine, duration);
-//			std::cout << "M:" << machine << std::endl;
-//			std::cout << "D:" << duration << std::endl;
-//			std::cout << "-----------------------------------------" << std::endl;
-
+			taskList.push_back(a);
+			Job job(taskList);
+			jobList.push_back(job);
 		}
 	}
 	else
 	{
 		std::cout << "Bestand niet gevonden." << std::endl;
 	}
-//	std::cout << taskList[1].at(1).getDuration() << std::endl;
 
 	istrm.close();
+}
+
+auto searchWhitespace(std::string s)
+{
+	auto a = s.find(' ');
+	auto b = s.find('\t');
+	if(a<b)
+	{
+		return a;
+	}
+	else
+	{
+		return b;
+	}
 }
 
 const std::string& InputReader::getFileName() const
@@ -93,9 +99,9 @@ void InputReader::setFileName(const std::string& fileName)
 	this->fileName = fileName;
 }
 
-const std::vector<std::vector<Task> >& InputReader::getTaskList() const
+const std::vector<Job>& InputReader::getJobList() const
 {
-	return taskList;
+	return jobList;
 }
 
 unsigned short InputReader::getTotalJobs() const

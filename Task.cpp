@@ -19,6 +19,11 @@ Task::~Task()
 	// TODO Auto-generated destructor stub
 }
 
+Task::Task(const Task& task){
+	this->machineID = task.machineID;
+	this->duration = task.duration;
+}
+
 unsigned short Task::getDuration() const
 {
 	return duration;
