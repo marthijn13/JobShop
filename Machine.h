@@ -16,7 +16,7 @@ public:
 	virtual ~Machine();
 
 	void update(unsigned long currentTime);
-	void giveTask(const Task& newTask, unsigned long currentTime);
+	void assignTask(const Task& newTask, unsigned long currentTime);
 
 	bool isActive() const;
 	unsigned long getEndTime() const;
@@ -28,7 +28,7 @@ public:
 	void setStartTime(unsigned long startTime);
 
 private:
-	bool active;
+	bool active = false;
 
 	unsigned short machineID;
 	unsigned long endTime = 0;

@@ -6,6 +6,7 @@
  */
 #include <vector>
 #include "Task.h"
+#include <iostream>
 
 #ifndef JOBSHOP_JOB_H_
 #define JOBSHOP_JOB_H_
@@ -13,29 +14,40 @@
 class Job
 {
 public:
-	Job(std::vector<Task> taskList);
+	Job(std::vector<Task> taskList, unsigned short jobID);
 	~Job();
 
-	void updateTaskList();
-	void assignTask();
+	void update(unsigned long currentTime);
+	void startTask(unsigned long currentTime);
+	void taskDone();
 
+	bool operator==(const Job& other) const;
+
+	Task getFirstTask() const;
 	unsigned long getEarliestFinish() const;
 	void setEarliestFinish(unsigned long earliestFinish);
 	unsigned long getEndTime() const;
 	void setEndTime(unsigned long endTime);
 	unsigned long getSlack() const;
 	void setSlack(unsigned long slack);
-	unsigned long getStartTime() const;
-	void setStartTime(unsigned long startTime);
+	long getStartTime() const;
+	void setStartTime(long startTime);
 	std::vector<Task> getTaskList() const;
 	void setTasklist(std::vector<Task> tasklist);
+	bool isActive() const;
+	unsigned short getJobId() const;
+	bool isDone() const;
 
 private:
 	std::vector<Task> taskList;
-	unsigned long startTime;
-	unsigned long endTime;
+	long startTime = -1;
+	unsigned long endTime = 0;
 	unsigned long earliestFinish;
 	unsigned long slack;
+
+	unsigned short jobID;
+	bool active = false;
+	bool done = false;
 };
 
 #endif /* JOBSHOP_JOB_H_ */

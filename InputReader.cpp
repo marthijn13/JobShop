@@ -32,11 +32,11 @@ void InputReader::readInput(std::string fileName)
 		std::string::size_type stringSize;
 
 		totalJobs = std::stoi(c.substr(0, space), &stringSize);
-		std::cout << "Number of jobs: " << totalJobs << std::endl;
+//		std::cout << "Number of jobs: " << totalJobs << std::endl;
 
 		totalMachines = std::stoi(c.substr(space, (c.size() - space)),
 				&stringSize);
-		std::cout << "Number of machines: " << totalMachines << std::endl;
+//		std::cout << "Number of machines: " << totalMachines << std::endl;
 		taskList.reserve(totalMachines);
 
 		auto stringStart = 0;
@@ -64,7 +64,7 @@ void InputReader::readInput(std::string fileName)
 			short duration = std::stoi(c.substr(stringStart, c.size()));
 			Task a(machine, duration);
 			taskList.push_back(a);
-			Job job(taskList);
+			Job job(taskList, j);
 			taskList.clear();
 			jobList.push_back(job);
 		}

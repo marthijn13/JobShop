@@ -15,10 +15,11 @@ int main(int argc, char **argv) {
 	InputReader file("test.txt");
 	Scheduler mrSchedule(file.getJobList(), file.getTotalMachines(), file.getTotalJobs());
 
-	mrSchedule.update();
+	while (!mrSchedule.isFinished()){
+		mrSchedule.update();
+	}
 
-
-
+	mrSchedule.print();
 
 	return 0;
 }

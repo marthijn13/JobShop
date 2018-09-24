@@ -9,6 +9,7 @@
 #include "Task.h"
 #include "Job.h"
 #include <iostream>
+#include <algorithm>
 
 #ifndef JOBSHOP_SCHEDULER_H_
 #define JOBSHOP_SCHEDULER_H_
@@ -21,7 +22,8 @@ public:
 
 	void update();
 	void calcEF();
-	void calcSlack();
+	void assignTask();
+	void print();
 	bool isFinished() const;
 
 private:
@@ -30,7 +32,8 @@ private:
 	unsigned short totalMachines;
 	unsigned short totalJobs;
 
-	unsigned long currendTime = 0;
+	unsigned long currentTime = 0;
+	unsigned long latestFinish = 0;
 
 	bool finished = false;
 };

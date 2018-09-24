@@ -8,7 +8,7 @@
 #include "Machine.h"
 
 Machine::Machine(unsigned short machineID) :
-		active(false), machineID(machineID), endTime(0)
+		machineID(machineID), endTime(0)
 {
 }
 
@@ -19,12 +19,13 @@ Machine::~Machine()
 
 void Machine::update(unsigned long currentTime)
 {
-	active = currentTime > endTime;
+	active = currentTime < endTime;
 }
 
-void Machine::giveTask(const Task& newTask, unsigned long currentTime)
+void Machine::assignTask(const Task& newTask, unsigned long currentTime)
 {
 	endTime = currentTime + newTask.getDuration();
+	active = true;
 }
 
 bool Machine::isActive() const
