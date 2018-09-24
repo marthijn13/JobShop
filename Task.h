@@ -11,7 +11,7 @@
 class Task
 {
 public:
-	Task();
+	Task(unsigned short machineID, unsigned short duration);
 	virtual ~Task();
 	unsigned short getDuration() const;
 	unsigned short getMachineId() const;
