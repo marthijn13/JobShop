@@ -1,8 +1,8 @@
 /*
  * Machine.cpp
  *
- *  Created on: 23 sep. 2018
- *      Author: mdkon
+ *  Created on: 25 sep. 2018
+ *      Author: mdkoning
  */
 
 #include "Machine.h"
@@ -41,19 +41,4 @@ unsigned long Machine::getEndTime() const
 unsigned short Machine::getMachineId() const
 {
 	return machineID;
-}
-
-void Machine::setActive(bool active)
-{
-	this->active = active;
-}
-
-void Machine::setEndTime(unsigned long endTime)
-{
-	this->endTime = endTime;
-}
-
-void Machine::setMachineId(unsigned short machineId)
-{
-	machineID = machineId;
 }

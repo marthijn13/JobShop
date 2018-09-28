@@ -1,15 +1,14 @@
 /*
  * Job.h
  *
- *  Created on: Sep 24, 2018
- *      Author: marthijn
+ *  Created on: 25 sep. 2018
+ *      Author: mdkon
  */
 #include <vector>
 #include "Task.h"
-#include <iostream>
 
-#ifndef JOBSHOP_JOB_H_
-#define JOBSHOP_JOB_H_
+#ifndef JOB_H_
+#define JOB_H_
 
 class Job
 {
@@ -18,36 +17,30 @@ public:
 	~Job();
 
 	void update(unsigned long currentTime);
+	Task& getFirstTask();
 	void startTask(unsigned long currentTime);
 	void taskDone();
+	bool isDone();
 
 	bool operator==(const Job& other) const;
-
-	Task getFirstTask() const;
+	const std::vector<Task>& getTaskList() const;
+	bool isActive() const;
 	unsigned long getEarliestFinish() const;
 	void setEarliestFinish(unsigned long earliestFinish);
-	unsigned long getEndTime() const;
-	void setEndTime(unsigned long endTime);
-	unsigned long getSlack() const;
-	void setSlack(unsigned long slack);
 	long getStartTime() const;
-	void setStartTime(long startTime);
-	std::vector<Task> getTaskList() const;
-	void setTasklist(std::vector<Task> tasklist);
-	bool isActive() const;
+	void setStartTime(long startTime = -1);
+	unsigned long getEndTime() const;
 	unsigned short getJobId() const;
-	bool isDone() const;
 
 private:
 	std::vector<Task> taskList;
 	long startTime = -1;
 	unsigned long endTime = 0;
-	unsigned long earliestFinish;
-	unsigned long slack;
+	unsigned long earliestFinish = 0;
 
 	unsigned short jobID;
 	bool active = false;
 	bool done = false;
 };
 
-#endif /* JOBSHOP_JOB_H_ */
+#endif /* JOB_H_ */

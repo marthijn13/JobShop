@@ -1,18 +1,19 @@
 /*
  * Scheduler.h
  *
- *  Created on: 23 sep. 2018
+ *  Created on: 25 sep. 2018
  *      Author: mdkon
  */
 #include <vector>
+#include <iostream>
+#include <algorithm>
+#include <map>
 #include "Machine.h"
 #include "Task.h"
 #include "Job.h"
-#include <iostream>
-#include <algorithm>
 
-#ifndef JOBSHOP_SCHEDULER_H_
-#define JOBSHOP_SCHEDULER_H_
+#ifndef SCHEDULER_H_
+#define SCHEDULER_H_
 
 class Scheduler
 {
@@ -38,4 +39,4 @@ private:
 	bool finished = false;
 };
 
-#endif /* JOBSHOP_SCHEDULER_H_ */
+#endif /* SCHEDULER_H_ */

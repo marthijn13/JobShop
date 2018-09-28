@@ -1,25 +1,31 @@
 /*
- * Main.cpp
+ * main.cpp
  *
- *  Created on: Sep 14, 2018
- *      Author: marthijn
+ *  Created on: 25 sep. 2018
+ *      Author: mdkoning
  */
 #include <iostream>
-#include <fstream>
-#include <string>
-#include "InputReader.h"
+#include <regex>
+#include "InputProcessor.h"
 #include "Scheduler.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
+	if (argc > 0)
+	{
+		InputProcessor input(argv[1]);
+		//	input.print();
 
-	InputReader file("test.txt");
-	Scheduler mrSchedule(file.getJobList(), file.getTotalMachines(), file.getTotalJobs());
+		Scheduler mrSchedule(input.getJobList(), input.getTMachines(),
+				input.getTJobs());
 
-	while (!mrSchedule.isFinished()){
-		mrSchedule.update();
+		while (!mrSchedule.isFinished())
+		{
+			mrSchedule.update();
+		}
+
+		mrSchedule.print();
 	}
-
-	mrSchedule.print();
 
 	return 0;
 }
