@@ -27,14 +27,14 @@ void InputProcessor::processInput(std::string fileName)
 	if (istrm.is_open())
 	{
 		getline(istrm, str);
-		std::regex reg("\\d[^ ]? \\d[^ ]?");
+		std::regex reg("\\d+[^\\d]*\\d+");
 		std::smatch matches;
 
+		getline(istrm, str);
 		while (!(std::regex_search(str, matches, reg)))
 		{
 			getline(istrm, str);
 		}
-//		std::cout << "Match: " << matches.str(0) << std::endl;
 
 		initProcessor(matches.str(0));
 
@@ -50,7 +50,7 @@ void InputProcessor::processInput(std::string fileName)
 				str = matches.suffix().str();
 
 			}
-//			std::cout << "Job: " << jobStr << std::endl;
+			//std::cout << "Job: " << jobStr << std::endl;
 			jobList.push_back(jobProcessor(jobStr, j));
 		}
 
@@ -75,7 +75,7 @@ void InputProcessor::print(){
 void InputProcessor::initProcessor(std::string str)
 {
 	std::string::size_type sz;
-	std::regex reg("\\d[^ ]?");
+	std::regex reg("\\d+");
 	std::smatch matches;
 
 	short i = 0;
@@ -93,13 +93,13 @@ void InputProcessor::initProcessor(std::string str)
 		str = matches.suffix().str();
 		++i;
 	}
-//	std::cout << "Jobs: " << tJobs << std::endl;
-//	std::cout << "Machines: " << tMachines << std::endl;
+	std::cout << "Jobs: " << tJobs << std::endl;
+	std::cout << "Machines: " << tMachines << std::endl;
 }
 
-Job InputProcessor::jobProcessor(std::string str, unsigned short jobID)
+Job InputProcessor::jobProcessor(std::string str, unsigned long jobID)
 {
-	std::regex reg("\\d[^ ]? \\d[^ ]?");
+	std::regex reg("\\d+[^\\d]*\\d+");
 	std::smatch matches;
 
 	std::vector<Task> taskList;
@@ -120,10 +120,10 @@ Job InputProcessor::jobProcessor(std::string str, unsigned short jobID)
 
 Task InputProcessor::taskProcessor(std::string str)
 {
-	unsigned short machineID;
-	unsigned short duration;
+	long machineID;
+	long duration;
 	std::string::size_type sz;
-	std::regex reg("\\d[^ ]?");
+	std::regex reg("\\d+");
 	std::smatch matches;
 
 	short i = 0;
@@ -132,11 +132,11 @@ Task InputProcessor::taskProcessor(std::string str)
 	{
 		if (i == 0)
 		{
-			machineID = std::stol(matches.str(0), &sz);
+			machineID = std::stoul(matches.str(0), &sz);
 		}
 		else
 		{
-			duration = std::stol(matches.str(0), &sz);
+			duration = std::stoul(matches.str(0), &sz);
 		}
 		str = matches.suffix().str();
 		++i;

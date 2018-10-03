@@ -30,7 +30,7 @@ public:
 
 private:
 	void initProcessor(std::string str);
-	Job jobProcessor(std::string jobStr, unsigned short jobID);
+	Job jobProcessor(std::string jobStr, unsigned long jobID);
 	Task taskProcessor(std::string str);
 
 	std::string fileName;

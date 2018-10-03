@@ -13,8 +13,8 @@ int main(int argc, char **argv)
 {
 	if (argc > 0)
 	{
-		InputProcessor input(argv[1]);
-		//	input.print();
+		InputProcessor input("bla.txt"/*argv[1]*/);
+			//input.print();
 
 		Scheduler mrSchedule(input.getJobList(), input.getTMachines(),
 				input.getTJobs());

@@ -7,7 +7,7 @@
 
 #include "Task.h"
 
-Task::Task(unsigned short machineID, unsigned short duration) :
+Task::Task(unsigned long machineID, unsigned long duration) :
 		machineID(machineID), duration(duration)
 {
 	// TODO Auto-generated constructor stub
@@ -24,12 +24,12 @@ Task::Task(const Task& task){
 	this->duration = task.duration;
 }
 
-unsigned short Task::getDuration() const
+unsigned long Task::getDuration() const
 {
 	return duration;
 }
 
-unsigned short Task::getMachineId() const
+unsigned long Task::getMachineId() const
 {
 	return machineID;
 }

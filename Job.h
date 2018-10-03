@@ -13,7 +13,7 @@
 class Job
 {
 public:
-	Job(std::vector<Task> taskList, unsigned short jobID);
+	Job(std::vector<Task> taskList, unsigned long jobID);
 	~Job();
 
 	void update(unsigned long currentTime);
@@ -30,7 +30,7 @@ public:
 	long getStartTime() const;
 	void setStartTime(long startTime = -1);
 	unsigned long getEndTime() const;
-	unsigned short getJobId() const;
+	unsigned long getJobId() const;
 
 private:
 	std::vector<Task> taskList;
@@ -38,7 +38,7 @@ private:
 	unsigned long endTime = 0;
 	unsigned long earliestFinish = 0;
 
-	unsigned short jobID;
+	unsigned long jobID;
 	bool active = false;
 	bool done = false;
 };

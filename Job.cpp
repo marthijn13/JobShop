@@ -7,7 +7,7 @@
 
 #include "Job.h"
 
-Job::Job(std::vector<Task> taskList, unsigned short jobID) :
+Job::Job(std::vector<Task> taskList, unsigned long jobID) :
 		taskList(taskList), jobID(jobID)
 {
 }
@@ -80,7 +80,7 @@ unsigned long Job::getEndTime() const
 	return endTime;
 }
 
-unsigned short Job::getJobId() const
+unsigned long Job::getJobId() const
 {
 	return jobID;
 }

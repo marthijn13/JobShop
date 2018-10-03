@@ -11,16 +11,16 @@
 class Task
 {
 public:
-	Task(unsigned short machineID, unsigned short duration);
+	Task(unsigned long machineID, unsigned long duration);
 	virtual ~Task();
 	Task(const Task& task);
 
-	unsigned short getDuration() const;
-	unsigned short getMachineId() const;
+	unsigned long getDuration() const;
+	unsigned long getMachineId() const;
 
 private:
-	unsigned short machineID;
-	unsigned short duration;
+	unsigned long machineID;
+	unsigned long duration;
 };
 
 #endif /* JOBSHOP_TASK_H_ */

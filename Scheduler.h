@@ -18,7 +18,7 @@
 class Scheduler
 {
 public:
-	Scheduler(std::vector<Job> jobList, unsigned short totalMachines, unsigned short totalJobs);
+	Scheduler(std::vector<Job> jobList, unsigned long totalMachines, unsigned long totalJobs);
 	virtual ~Scheduler();
 
 	void update();
@@ -27,14 +27,18 @@ public:
 	void print();
 	bool isFinished() const;
 
+
+
 private:
 	std::vector<Machine> machineList;
 	std::vector<Job> jobList;
-	unsigned short totalMachines;
-	unsigned short totalJobs;
+	unsigned long totalMachines;
+	unsigned long totalJobs;
 
 	unsigned long currentTime = 0;
 	unsigned long latestFinish = 0;
+
+	unsigned long jobCounter = 0;
 
 	bool finished = false;
 };

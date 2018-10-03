@@ -7,28 +7,23 @@
 
 #include "Scheduler.h"
 
-Scheduler::Scheduler(std::vector<Job> jobList, unsigned short totalMachines,
-		unsigned short totalJobs) :
-		jobList(jobList), totalMachines(totalMachines), totalJobs(totalJobs)
-{
+Scheduler::Scheduler(std::vector<Job> jobList, unsigned long totalMachines,
+		unsigned long totalJobs) :
+		jobList(jobList), totalMachines(totalMachines), totalJobs(totalJobs) {
 	machineList.reserve(totalMachines);
-	for (unsigned short i = 0; i < totalMachines; ++i)
-	{
+	for (unsigned short i = 0; i < totalMachines; ++i) {
 		Machine a(i);
 		machineList.push_back(a);
 	}
 }
 
-Scheduler::~Scheduler()
-{
+Scheduler::~Scheduler() {
 
 }
 
-void Scheduler::update()
-{
+void Scheduler::update() {
 	bool done = true;
-	for (auto& job : jobList)
-	{
+	for (auto& job : jobList) {
 		job.update(currentTime);
 		if (!job.isDone())
 			done = false;
@@ -36,8 +31,7 @@ void Scheduler::update()
 	if (done)
 		finished = true;
 
-	for (auto& machine : machineList)
-	{
+	for (auto& machine : machineList) {
 		machine.update(currentTime);
 //		std::cout << "MachineActive: " << machine.isActive() << std::endl;
 	}
@@ -51,15 +45,11 @@ void Scheduler::update()
 	++currentTime;
 }
 
-void Scheduler::calcEF()
-{
+void Scheduler::calcEF() {
 	unsigned long earliestFinish = 0;
-	for (auto& job : jobList)
-	{
-		if (!job.isActive())
-		{
-			for (auto& task : job.getTaskList())
-			{
+	for (auto& job : jobList) {
+		if (!job.isActive()) {
+			for (auto& task : job.getTaskList()) {
 				earliestFinish += currentTime;
 				earliestFinish += task.getDuration();
 				//			std::cout << "Single: " << task.getDuration() <<" | Time: " << earliestFinish << std::endl;
@@ -73,44 +63,45 @@ void Scheduler::calcEF()
 	}
 }
 
-void Scheduler::assignTask()
-{
-	auto greater = [](Job a, Job b)
+void Scheduler::assignTask() {
+	auto sortEF = [](Job a, Job b)
 	{
-		return a.getEarliestFinish() > b.getEarliestFinish();
+		if(a.getEarliestFinish() == b.getEarliestFinish()){
+			return a.getJobId() < b.getJobId();
+		} else {
+			return a.getEarliestFinish() > b.getEarliestFinish();
+		}
 	};
-	std::sort(jobList.begin(), jobList.end(), greater);
+	std::sort(jobList.begin(), jobList.end(), sortEF);
 
-	for (auto& job : jobList)
-	{
-//		std::cout << "Job-Active: " << job.isActive() << std::endl;
+	for (auto& job : jobList) {
 		if (!job.isActive() && !job.isDone()
-				&& !(machineList[job.getFirstTask().getMachineId()].isActive()))
-		{
-//			std::cout << "Job start time: " << job.getStartTime() << std::endl;
-			if (job.getStartTime() < 0)
-			{
+				&& !(machineList[job.getFirstTask().getMachineId()].isActive())) {
+			if (job.getStartTime() < 0) {
 				job.setStartTime(currentTime);
 			}
-//			std::cout << "Job start time2: " << job.getStartTime() << std::endl;
 			machineList[job.getFirstTask().getMachineId()].assignTask(
 					job.getFirstTask(), currentTime);
 			job.startTask(currentTime);
 			job.taskDone();
+			jobCounter++;
 		}
 	}
 }
 
-void Scheduler::print()
-{
-	for (auto& job : jobList)
+void Scheduler::print() {
+	auto greater = [](Job a, Job b)
 	{
+		return a.getJobId() < b.getJobId();
+	};
+	std::sort(jobList.begin(), jobList.end(), greater);
+	for (auto& job : jobList) {
 		std::cout << job.getJobId() << " " << job.getStartTime() << " "
 				<< job.getEndTime() << std::endl;
 	}
+	std::cout << "Task count: " << jobCounter << std::endl;
 }
 
-bool Scheduler::isFinished() const
-{
+bool Scheduler::isFinished() const {
 	return finished;
 }
