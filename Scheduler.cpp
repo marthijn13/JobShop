@@ -50,7 +50,7 @@ void Scheduler::calcEF() {
 	for (auto& job : jobList) {
 		if (!job.isActive()) {
 			for (auto& task : job.getTaskList()) {
-				earliestFinish += currentTime;
+				//earliestFinish += currentTime;
 				earliestFinish += task.getDuration();
 				//			std::cout << "Single: " << task.getDuration() <<" | Time: " << earliestFinish << std::endl;
 			}
@@ -72,7 +72,18 @@ void Scheduler::assignTask() {
 			return a.getEarliestFinish() > b.getEarliestFinish();
 		}
 	};
+
 	std::sort(jobList.begin(), jobList.end(), sortEF);
+
+	std::cout << "Current time: " << currentTime << std::endl;
+	for(Job job: jobList){
+		std::cout << "Job: " << job.getJobId() << "->";
+		for(Task task : job.getTaskList()){
+			std::cout << task.getMachineId() << "|" << task.getDuration() << " ";
+		}
+		std::cout << "<-> " << job.getEarliestFinish() << " " << job.isActive() << std::endl;
+	}
+	std::cout << std::endl;
 
 	for (auto& job : jobList) {
 		if (!job.isActive() && !job.isDone()

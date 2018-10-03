@@ -1,0 +1,4 @@
+argv goedzetten
+comments toevoegen
+jobcounter weghalen
+MET ALLE WARNINGS RUNNEN
